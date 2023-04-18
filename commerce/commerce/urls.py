@@ -23,8 +23,7 @@ from django.conf.urls.static import static
 # now we can add the following to the settings.py file: static files
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', include('core.urls')),
     path('products/', include('product.urls')),
-    path('contact/', views.contact, name='contact'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
