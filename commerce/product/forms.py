@@ -28,4 +28,29 @@ class NewProductForm(forms.ModelForm):
 
         }
 
+
+class EditProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ('name', 'description', 'price', 'image', 'is_sold')
+        # widgets is a dictionary that contains the fields as keys and the widgets as values
+        widgets = {
+            'name': forms.TextInput(attrs={
+            'class': INPUT_CLASSES
+            }),
+            'description': forms.Textarea(attrs={
+            'class': INPUT_CLASSES
+            }),
+            'price': forms.TextInput(attrs={
+            'class': INPUT_CLASSES
+            }),
+            'image': forms.FileInput(attrs={
+            'class': INPUT_CLASSES
+            }),
+        }
+    #   populate the form with the current values of the product
+    # def __init__(self, *args, **kwargs):
+    #     super(EditProductForm, self).__init__(*args, **kwargs)
+    #     self.fields['is_sold'].widget.attrs.update({'class': INPUT_CLASSES})
+
   
