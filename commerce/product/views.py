@@ -1,13 +1,31 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product
+from django.db.models import Q # Q is a shortcut for OR queries
+from .models import Product, Category
 from django.contrib.auth.decorators import login_required
 from .forms import NewProductForm, EditProductForm
 # Create your views here.
 
 def products(request):
+    query = request.GET.get('query', '')
     products = Product.objects.filter(is_sold=False)
+    category_id = request.GET.get('category', 0) # 0 is the default value if category_id is not found
+    categories = Category.objects.all()
+    
+    if category_id:
+        products = products.filter(category_id=category_id)
+
+
+    if query:
+        products = products.filter(Q(name__icontains=query) | Q(description__icontains=query)) # Q is a shortcut for OR queries
+        # import Q from django.db.models
+
+
+    
     return render(request, 'product/products.html', {
-        'products': products
+        'products': products,
+        'query': query,
+        'categories': categories,
+        'category_id': int(category_id)
     })
 
 def detail(request, pk):
