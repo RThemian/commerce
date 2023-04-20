@@ -47,10 +47,7 @@ class EditProductForm(forms.ModelForm):
             'image': forms.FileInput(attrs={
             'class': INPUT_CLASSES
             }),
+            # is_sold is a boolean field, so we need to use a checkbox
+            'is_sold': forms.CheckboxInput(),
         }
-    #   populate the form with the current values of the product
-    # def __init__(self, *args, **kwargs):
-    #     super(EditProductForm, self).__init__(*args, **kwargs)
-    #     self.fields['is_sold'].widget.attrs.update({'class': INPUT_CLASSES})
-
-  
+    

@@ -60,15 +60,18 @@ def new(request):
 
 @login_required
 def edit(request, pk):
-
+    print('line 63',pk)
     product = get_object_or_404(Product, pk=pk, created_by=request.user)
     # get_object_or_404 is a shortcut that will return a 404 error if the object is not found
     if request.method == 'POST':
         form = EditProductForm(request.POST, request.FILES, instance=product)
-       
+        print("form",form.is_valid())
         if form.is_valid():
-            form.save()
+            product = form.save()
             
+            product.save()
+
+
             return redirect('product:detail', pk=product.id)
     else: 
             form = EditProductForm(instance=product)
@@ -77,7 +80,7 @@ def edit(request, pk):
     
     return render(request, 'product/form.html', {
         'form': form,
-        'title': 'Edit Product'
+        'title': 'Update Product'
     })
 
 @login_required
