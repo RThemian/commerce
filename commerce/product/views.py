@@ -7,12 +7,13 @@ from .forms import NewProductForm, EditProductForm
 
 def products(request):
     query = request.GET.get('query', '')
-    products = Product.objects.filter(is_sold=False)
     category_id = request.GET.get('category', 0) # 0 is the default value if category_id is not found
     categories = Category.objects.all()
+    products = Product.objects.filter(is_sold=False)
+    
     
     if category_id:
-        products = products.filter(category_id=category_id)
+        products = products.filter(category_id=category_id) # filter by category_id = category_id from the url
 
 
     if query:
@@ -25,7 +26,7 @@ def products(request):
         'products': products,
         'query': query,
         'categories': categories,
-        'category_id': int(category_id)
+        'category_id': int(category_id),
     })
 
 def detail(request, pk):

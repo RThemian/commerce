@@ -11,14 +11,26 @@
                 <button class="mt-2 py-4 px-8 text-lg bg-teal-500 text-white rounded-xl">Search</button>
             </form>
             <hr class="my-6">
-            <p class="my-">Categories</p>
+            <p class="font-semibold">Categories</p>
             <ul>
                 {% for category in categories %}
-                    <li class="py-2 px-2 rounded-xl {% if category.id == category.id %} bg-gray-200 {% endif %}">
+                <!-- 
+                    explain if category.id == category_id # if the category id is equal to the category id
+                    then add the class bg-gray-200
+                
+                -->
+                    <li class="py-2 px-2 rounded-xl{% if category.id == category_id %} bg-gray-200 {% endif %}">
                         <a href="{% url 'product:products' %}?query={{ query }}&category={{category.id}}">{{ category.name }}</a>
                     </li>
                 {% endfor %}
             </ul>
+            <hr class="my-6">
+            <p class="font-semibold">Clear Filters</p>
+
+            <ul>
+                <li><a href="{% url 'product:products'%}" class="mt-2 py-4 px-8 inline-block rounded-xl bg-yellow-500 text-white">Clear</a></li>
+            </ul>
+
         </div>
         <div class="col-span-3">
             <div class="grid grid-cols-3 gap-3">
